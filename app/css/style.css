@@ -1,0 +1,80 @@
+html{
+    box-sizing: border-box;
+    font-size: 100%;
+}
+h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2em;
+    text-transform: uppercase;
+    text-align: center;
+}
+.container{
+    text-align: center;
+    min-width: 30vw;
+    max-width: fit-content;
+    display: block;
+    margin: auto;
+    background-color: #dddddd;
+    padding: 2%;
+    padding-top: 1%;
+    border-radius: 5px;
+    box-shadow: #20202070 2px 2px 5px;
+}
+.container h2{
+    font-size: 1.2em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+span{
+    display: block;
+    background-color: red;
+    padding: 5px;
+    color:  #f4f4f4;;
+    width: max-content;
+    margin: auto;
+    margin-bottom: 10px;
+}
+input[type=text]{
+    border-radius: 6px;
+    border: solid #909090 1px;
+    text-align: center;
+    padding: 5px;
+    width: 70%;
+}
+input[type=submit]{
+    font-size: 16px;
+    border-radius: 5px;
+    border: solid #909090 1px;
+    padding: 4px;
+    width: 30px;
+}
+input[type=submit]:hover{
+    background-color: #8b8b8b;
+    color: #f4f4f4;
+    cursor: pointer;
+}
+ul {
+    list-style: none;
+    background-color: #f4f4f4;
+    color: #202020;
+    padding: 0%;
+}
+li{
+    min-width: max-content;
+    margin-bottom: 20px;
+}
+button[type=reset]{
+    margin: auto;
+    display: none;
+}
+.delete{
+    float: right;
+}
+.checked{
+  float: left;
+}
+.checked:checked{
+    float: right;
+}
+.isChecked{
+ text-decoration: line-through;
+}
