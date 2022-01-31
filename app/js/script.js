@@ -2,13 +2,16 @@ let submitBtn = document.getElementById("submit");
 let form = document.getElementById("addForm");
 let taskList = document.getElementById("taskList");
 let resetBtn = document.getElementById("resetBtn");
-let allTasks = [];
+
 
 // event listeners to add task, remove task, clear list
 form.addEventListener("submit", addTask);
 taskList.addEventListener("click", removeTask);
 taskList.addEventListener("click", checkTask);
 resetBtn.addEventListener("click", resetList);
+window.addEventListener("load", loadTasks);
+
+const allTasks = [];
 
 // add task to the list
 function addTask(e) {
@@ -49,17 +52,36 @@ function addTask(e) {
     // show reset button
     resetBtn.style.display = "block";
 
-    // transform input value into an object
-    let todo = {
-      task: document.getElementById("task").value,
-    };
-    // push tasks to array
-    allTasks.push(todo);
-    console.log(allTasks);
+    newTask()
   }
 
   // clear input area
   textInput.value = "";
+}
+
+// create task object, push and storage
+function newTask(){
+  // transform input value into an object
+  let todo = {
+    task: document.getElementById("task").value
+  };
+  
+  // push tasks to array
+  allTasks.push(todo);
+
+  // send array to local storage
+  localStorage.setItem("task", JSON.stringify(allTasks));
+  console.log(allTasks);
+}
+
+// load storaged tasks -- NOT WORKING
+function loadTasks(){
+  let myTasks = localStorage.getItem("task");
+
+  if(myTasks){
+    myTasks = JSON.parse(myTasks);
+  }
+  console.log('page loaded')
 }
 
 // remove a task from the list
@@ -87,6 +109,10 @@ if (confirm("This action cannot be undone! Clear all tasks?")) {
   while (taskList.firstChild) {
     taskList.removeChild(taskList.firstChild);}
 }
+  // clear local storage
+  localStorage.removeItem("task", JSON.stringify(allTasks));
+
   // clear array
   allTasks = [];
+  console.log(allTasks);
 }
