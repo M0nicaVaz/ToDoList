@@ -2,7 +2,7 @@ let submitBtn = document.getElementById("submit");
 let form = document.getElementById("addForm");
 let taskList = document.getElementById("taskList");
 let resetBtn = document.getElementById("resetBtn");
-
+let textInput = document.getElementById("task");
 
 // event listeners to add task, remove task, clear list
 form.addEventListener("submit", addTask);
@@ -11,14 +11,11 @@ taskList.addEventListener("click", checkTask);
 resetBtn.addEventListener("click", resetList);
 window.addEventListener("load", loadTasks);
 
-const allTasks = [];
+let allTasks = [];
 
 // add task to the list
 function addTask(e) {
   e.preventDefault();
-
-  // get input value
-  let textInput = document.getElementById("task");
   // if input area is empty, creates a span requiring input - 2 sec duration
   if (textInput.value === "") {
     let newSpan = document.createElement("span");
@@ -27,92 +24,100 @@ function addTask(e) {
     form.insertAdjacentElement("afterbegin", newSpan);
     setTimeout(() => newSpan.remove(), 2000);
   } else {
-    //create  new li element
-    let li = document.createElement("li");
-    // add class
-    li.className = "tasks";
-    // add text node with input value
-    li.appendChild(document.createTextNode(textInput.value));
-
-    // create del button element
-    let deleteBtn = document.createElement("button");
-    deleteBtn.className = "delete";
-    deleteBtn.appendChild(document.createTextNode("X"));
-    li.appendChild(deleteBtn);
-
-    // append li to ul
-    taskList.appendChild(li);
-
-    // add checkbox to check tasks that are done
-    let checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.className = "checked";
-    li.appendChild(checkbox);
-
-    // show reset button
-    resetBtn.style.display = "block";
-
-    newTask()
+    createList();
+    newTask();
   }
-
   // clear input area
   textInput.value = "";
 }
 
+function createList() {
+  let textInput = document.getElementById("task");
+  //create  new li element
+  let li = document.createElement("li");
+  // add class
+  li.className = "tasks";
+  // add text node with input value
+  li.appendChild(document.createTextNode(textInput.value));
+  // create del button element
+  let deleteBtn = document.createElement("button");
+  deleteBtn.className = "delete";
+  deleteBtn.appendChild(document.createTextNode("X"));
+  li.appendChild(deleteBtn);
+
+  // append li to ul
+  taskList.appendChild(li);
+
+  // add checkbox to check tasks that are done
+  let checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.className = "checked";
+  li.appendChild(checkbox);
+
+  // show reset button
+  resetBtn.style.display = "block";
+}
 // create task object, push and storage
-function newTask(){
+function newTask() {
   // transform input value into an object
-  let todo = {
-    task: document.getElementById("task").value
-  };
-  
+  let todo = document.getElementById("task").value;
   // push tasks to array
   allTasks.push(todo);
 
   // send array to local storage
-  localStorage.setItem("task", JSON.stringify(allTasks));
+  localStorage.setItem("description", JSON.stringify(allTasks));
   console.log(allTasks);
 }
 
-// load storaged tasks -- NOT WORKING
-function loadTasks(){
-  let myTasks = localStorage.getItem("task");
-
-  if(myTasks){
-    myTasks = JSON.parse(myTasks);
+// load storaged tasks
+function loadTasks() {
+  if (JSON.parse(localStorage.getItem("description")) !== null) {
+    allTasks = JSON.parse(localStorage.getItem("description"));
   }
-  console.log('page loaded')
+  console.log(allTasks);
+
+  // creates a new li element for each i of allTasks
+  for (var i = 0; i < allTasks.length; i++) {
+    document.getElementById("taskList").innerHTML +=
+      "<li class='tasks'>" +
+      "<input type='checkbox' class='checked'>" +
+      allTasks[i] +
+      "<button class='delete'>X</button>" +
+      "</li>";
+  }
+  resetBtn.style.display = "block";
 }
 
-// remove a task from the list
+// remove a task from the list -- NEEDS LOCAL STORAGE IMPROVEMENT
+// check array.splice - localStorage.removeItem
 function removeTask(e) {
   if (e.target.classList.contains("delete")) {
-      let li = e.target.parentElement;
-      taskList.removeChild(li);
+    let li = e.target.parentElement;
+    taskList.removeChild(li);
   }
 }
 
-// check or uncheck task
-function checkTask(e){
-    let li = e.target.parentElement;
-  if (e.target.checked == true){
-    li.classList.add('isChecked')
+// check or uncheck task -- NEEDS LOCAL STORAGE IMPROVEMENT
+function checkTask(e) {
+  let li = e.target.parentElement;
+  if (e.target.checked == true) {
+    li.classList.add("isChecked");
   } else {
-    li.classList.remove('isChecked')
+    li.classList.remove("isChecked");
   }
 }
 
 // remove all li from ul
 function resetList() {
-//   alert action cannot be undone
-if (confirm("This action cannot be undone! Clear all tasks?")) {
-  while (taskList.firstChild) {
-    taskList.removeChild(taskList.firstChild);}
-}
+  //   alert action cannot be undone
+  if (confirm("This action cannot be undone! Clear all tasks?")) {
+    while (taskList.firstChild) {
+      taskList.removeChild(taskList.firstChild);
+    }
+  }
   // clear local storage
-  localStorage.removeItem("task", JSON.stringify(allTasks));
+  localStorage.clear();
 
   // clear array
   allTasks = [];
-  console.log(allTasks);
 }
