@@ -3,20 +3,17 @@ let form = document.getElementById("addForm");
 let taskList = document.getElementById("taskList");
 let resetBtn = document.getElementById("resetBtn");
 let textInput = document.getElementById("task");
-
+let allTasks = [];
 // event listeners to add task, remove task, clear list
 form.addEventListener("submit", addTask);
 taskList.addEventListener("click", removeTask);
 taskList.addEventListener("click", checkTask);
 resetBtn.addEventListener("click", resetList);
 window.addEventListener("load", loadTasks);
-
-let allTasks = [];
-
 // add task to the list
 function addTask(e) {
   e.preventDefault();
-  // if input area is empty, creates a span requiring input - 2 sec duration
+  // if input area is empty, creates a span requiring input / 2 sec duration
   if (textInput.value === "") {
     let newSpan = document.createElement("span");
     let spanTxt = document.createTextNode("Please insert task");
@@ -25,12 +22,12 @@ function addTask(e) {
     setTimeout(() => newSpan.remove(), 2000);
   } else {
     createList();
-    newTask();
+    saveTask();
   }
   // clear input area
   textInput.value = "";
 }
-
+// create li element, checkbox and delete button
 function createList() {
   let textInput = document.getElementById("task");
   //create  new li element
@@ -39,14 +36,14 @@ function createList() {
   li.className = "tasks";
   // add text node with input value
   li.appendChild(document.createTextNode(textInput.value));
+  // append li to ul
+  taskList.appendChild(li);
+
   // create del button element
   let deleteBtn = document.createElement("button");
   deleteBtn.className = "delete";
-  deleteBtn.appendChild(document.createTextNode("X"));
+  deleteBtn.appendChild(document.createTextNode(""));
   li.appendChild(deleteBtn);
-
-  // append li to ul
-  taskList.appendChild(li);
 
   // add checkbox to check tasks that are done
   let checkbox = document.createElement("input");
@@ -58,45 +55,45 @@ function createList() {
   resetBtn.style.display = "block";
 }
 // create task object, push and storage
-function newTask() {
-  // transform input value into an object
-  let todo = document.getElementById("task").value;
+function saveTask() {
   // push tasks to array
-  allTasks.push(todo);
+  allTasks.push(textInput.value);
 
   // send array to local storage
   localStorage.setItem("description", JSON.stringify(allTasks));
-  console.log(allTasks);
 }
-
 // load storaged tasks
 function loadTasks() {
   if (JSON.parse(localStorage.getItem("description")) !== null) {
-    allTasks = JSON.parse(localStorage.getItem("description"));
-  }
-  console.log(allTasks);
-
-  // creates a new li element for each i of allTasks
-  for (var i = 0; i < allTasks.length; i++) {
+    allTasks = JSON.parse(localStorage.getItem("description"));  
+   }
+  // creates a new li element for each index of 'allTasks'
+  for (i = 0; i < allTasks.length; i++) {
     document.getElementById("taskList").innerHTML +=
       "<li class='tasks'>" +
       "<input type='checkbox' class='checked'>" +
       allTasks[i] +
-      "<button class='delete'>X</button>" +
+      "<button class='delete'></button>" +
       "</li>";
   }
-  resetBtn.style.display = "block";
+  if (allTasks.length > 0) {
+    resetBtn.style.display = "block";
+  } 
 }
-
-// remove a task from the list -- NEEDS LOCAL STORAGE IMPROVEMENT
-// check array.splice - localStorage.removeItem
+// remove tasks
 function removeTask(e) {
   if (e.target.classList.contains("delete")) {
     let li = e.target.parentElement;
     taskList.removeChild(li);
+
+    let index = li.innerText;
+    allTasks.splice(allTasks.indexOf(index), 1);
+  }
+  localStorage.setItem("description", JSON.stringify(allTasks));
+  if (allTasks.length < 1) {
+    resetBtn.style.display = "none";
   }
 }
-
 // check or uncheck task -- NEEDS LOCAL STORAGE IMPROVEMENT
 function checkTask(e) {
   let li = e.target.parentElement;
@@ -106,18 +103,19 @@ function checkTask(e) {
     li.classList.remove("isChecked");
   }
 }
-
 // remove all li from ul
 function resetList() {
   //   alert action cannot be undone
-  if (confirm("This action cannot be undone! Clear all tasks?")) {
+  if (
+    confirm("Essa ação não pode ser desfeita. Deseja excluir toda a lista?")
+  ) {
     while (taskList.firstChild) {
       taskList.removeChild(taskList.firstChild);
     }
   }
   // clear local storage
   localStorage.clear();
-
   // clear array
   allTasks = [];
+  resetBtn.style.display = "none";
 }

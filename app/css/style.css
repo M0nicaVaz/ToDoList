@@ -72,9 +72,6 @@ button[type=reset]{
 .checked{
   float: left;
 }
-.checked:checked{
-    float: right;
-}
 .isChecked{
  text-decoration: line-through;
 }
