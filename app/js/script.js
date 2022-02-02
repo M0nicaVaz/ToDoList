@@ -16,7 +16,7 @@ function addTask(e) {
   // if input area is empty, creates a span requiring input / 2 sec duration
   if (textInput.value === "") {
     let newSpan = document.createElement("span");
-    let spanTxt = document.createTextNode("Please insert task");
+    let spanTxt = document.createTextNode("Por favor, digite uma tarefa.");
     newSpan.appendChild(spanTxt);
     form.insertAdjacentElement("afterbegin", newSpan);
     setTimeout(() => newSpan.remove(), 2000);
@@ -98,7 +98,7 @@ function removeTask(e) {
 function checkTask(e) {
   let li = e.target.parentElement;
   if (e.target.checked == true) {
-    li.classList.add("isChecked");
+    li.classList.add("isChecked");    
   } else {
     li.classList.remove("isChecked");
   }
