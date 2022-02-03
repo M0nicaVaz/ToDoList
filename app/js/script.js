@@ -16,13 +16,20 @@ function addTask(e) {
   // if input area is empty, creates a span requiring input / 2 sec duration
   if (textInput.value === "") {
     let newSpan = document.createElement("span");
-    let spanTxt = document.createTextNode("Por favor, digite uma tarefa.");
+    let spanTxt = document.createTextNode("Por favor, digite uma tarefa!");
     newSpan.appendChild(spanTxt);
     form.insertAdjacentElement("afterbegin", newSpan);
     setTimeout(() => newSpan.remove(), 2000);
-  } else {
+  } else if (allTasks.length < 9){
     createList();
     saveTask();
+  } else{
+    let secondSpan = document.createElement("span");
+    let secondSpanTxt = document.createTextNode
+    ("Você alcançou o nosso limite de tarefas. Que tal concluir algumas?");
+    secondSpan.appendChild(secondSpanTxt);
+    form.insertAdjacentElement("afterbegin", secondSpan);
+    setTimeout(() => secondSpan.remove(), 3000);
   }
   // clear input area
   textInput.value = "";
@@ -42,7 +49,7 @@ function createList() {
   // create del button element
   let deleteBtn = document.createElement("button");
   deleteBtn.className = "delete";
-  deleteBtn.appendChild(document.createTextNode(""));
+  deleteBtn.appendChild(document.createTextNode("x"));
   li.appendChild(deleteBtn);
 
   // add checkbox to check tasks that are done
@@ -73,7 +80,7 @@ function loadTasks() {
       "<li class='tasks'>" +
       "<input type='checkbox' class='checked'>" +
       allTasks[i] +
-      "<button class='delete'></button>" +
+      "<button class='delete'>x</button>" +
       "</li>";
   }
   if (allTasks.length > 0) {
@@ -109,6 +116,7 @@ function resetList() {
   if (
     confirm("Essa ação não pode ser desfeita. Deseja excluir toda a lista?")
   ) {
+    resetBtn.style.display = "none";
     while (taskList.firstChild) {
       taskList.removeChild(taskList.firstChild);
     }
@@ -117,5 +125,5 @@ function resetList() {
   localStorage.clear();
   // clear array
   allTasks = [];
-  resetBtn.style.display = "none";
+  
 }
