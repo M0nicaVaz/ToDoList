@@ -6,7 +6,7 @@ body{
     background: linear-gradient(140deg, #D0D9F2 15%, #f2dac4c0, #ace4f2d3);
     background-size: 100vw 100vh;
     text-transform: uppercase;
-    overflow: hidden; 
+    overflow: auto; 
 }
 h1{
     font-family: 'Oswald', sans-serif;
@@ -79,6 +79,7 @@ ul {
     margin-top:15px;
 }
 ul li{
+    min-width: max-content;
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
     background-color: #ffffff4b;
@@ -108,9 +109,11 @@ button[type=reset]:hover{
     color: #f4f4f4;
     cursor: pointer;
 }
+
 .delete{
     float: right;
-    font-size: 12px;
+    margin-left: 5px;
+    font-size: 14px;
     border-radius: 5px;
     background: inherit;
     border: solid #909090b9 1px;
@@ -127,7 +130,7 @@ button[type=reset]:hover{
 }
 .isChecked{
  text-decoration: line-through;
-color: #E0BFAD;
+ color: #716FA6;
 }
 footer{
     font-family: 'Patrick Hand', cursive;
@@ -135,7 +138,8 @@ footer{
     color: #909090;
     width: 100%;
     position: relative;
-    text-align: center;
+   text-align: center;
+ 
 }
 footer a{
     color: #6b6b6b;
@@ -144,25 +148,43 @@ footer a{
 footer a:hover{
     color: #716FA6;
 }
-@media (max-width: 900px) {
-    ul{
-        width: 70vw;
+@media(max-width: 1280px) {
+    .container{
+        min-width: 70vw;
+        max-width: max-content;
     }
-    ul li{
-        font-size: 1em;
-        margin: auto;
-        margin-bottom: 10px;
-       min-width:45vw;
+    input[type=submit]{
+        padding: 7px;
+    }
+    span{
+        font-size: 0.8em;
     }
     #task{
         width: 50%;
         margin-left: 0px;
-        padding:6px;
+        padding:8px;
     }
     #task::placeholder{
-        font-size: 1em;
+        font-size: 0.8em;
+    }
+    ul{
+        min-width: max-content;
+    }
+    ul li{
+        font-size: 0.8em;
+        margin: auto;
+        margin-bottom: 10px;
+       min-width:45vw;
+    }
+    .delete{
+        margin-left: 5px;
     }
     #resetBtn{
         margin-top: 20px;
+    }
+}
+@media(max-width: 320px){ 
+    html{
+        font-size: 0.6em;
     }
 }

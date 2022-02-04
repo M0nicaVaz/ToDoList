@@ -15,18 +15,22 @@ function addTask(e) {
   e.preventDefault();
   // if input area is empty, creates a span requiring input / 2 sec duration
   if (textInput.value === "") {
+    textInput.style.marginTop = "10px";
     let newSpan = document.createElement("span");
     let spanTxt = document.createTextNode("Por favor, digite uma tarefa!");
     newSpan.appendChild(spanTxt);
     form.insertAdjacentElement("afterbegin", newSpan);
     setTimeout(() => newSpan.remove(), 2000);
-  } else if (allTasks.length < 9){
+    setTimeout(() => (textInput.style.marginTop = "25px"), 2000);
+    // limits li elements to 9
+  } else if (allTasks.length < 9) {
     createList();
     saveTask();
-  } else{
+  } else {
     let secondSpan = document.createElement("span");
-    let secondSpanTxt = document.createTextNode
-    ("Você alcançou o nosso limite de tarefas. Que tal concluir algumas?");
+    let secondSpanTxt = document.createTextNode(
+      "Você alcançou o nosso limite de tarefas!"
+    );
     secondSpan.appendChild(secondSpanTxt);
     form.insertAdjacentElement("afterbegin", secondSpan);
     setTimeout(() => secondSpan.remove(), 3000);
@@ -49,7 +53,8 @@ function createList() {
   // create del button element
   let deleteBtn = document.createElement("button");
   deleteBtn.className = "delete";
-  deleteBtn.appendChild(document.createTextNode("x"));
+  deleteBtn.appendChild(document.createTextNode(""));
+  deleteBtn.innerHTML = "<i class='far fa-trash-alt'></i>";
   li.appendChild(deleteBtn);
 
   // add checkbox to check tasks that are done
@@ -61,7 +66,7 @@ function createList() {
   // show reset button
   resetBtn.style.display = "block";
 }
-// create task object, push and storage
+// create task object, push and send it to local storage
 function saveTask() {
   // push tasks to array
   allTasks.push(textInput.value);
@@ -72,20 +77,22 @@ function saveTask() {
 // load storaged tasks
 function loadTasks() {
   if (JSON.parse(localStorage.getItem("description")) !== null) {
-    allTasks = JSON.parse(localStorage.getItem("description"));  
-   }
+    allTasks = JSON.parse(localStorage.getItem("description"));
+  }
   // creates a new li element for each index of 'allTasks'
   for (i = 0; i < allTasks.length; i++) {
     document.getElementById("taskList").innerHTML +=
       "<li class='tasks'>" +
       "<input type='checkbox' class='checked'>" +
       allTasks[i] +
-      "<button class='delete'>x</button>" +
+      "<button class='delete'>" +
+      "<i class='far fa-trash-alt'></i>" +
+      "</button>" +
       "</li>";
   }
   if (allTasks.length > 0) {
     resetBtn.style.display = "block";
-  } 
+  }
 }
 // remove tasks
 function removeTask(e) {
@@ -105,12 +112,12 @@ function removeTask(e) {
 function checkTask(e) {
   let li = e.target.parentElement;
   if (e.target.checked == true) {
-    li.classList.add("isChecked");    
+    li.classList.add("isChecked");
   } else {
     li.classList.remove("isChecked");
   }
 }
-// remove all li from ul
+// remove all li from ul and clear local storage
 function resetList() {
   //   alert action cannot be undone
   if (
@@ -125,5 +132,4 @@ function resetList() {
   localStorage.clear();
   // clear array
   allTasks = [];
-  
 }
