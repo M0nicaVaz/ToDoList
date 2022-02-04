@@ -2,7 +2,11 @@
 ## Uma lista de tarefas simples e fácil de utilizar.
 
 ### Status
+<<<<<<< HEAD
 **Quase lá... 95%**
+=======
+**Concluindo... 95%**
+>>>>>>> a3ff71ddfed9a99e6905accaeef55b0d871ebb4c
 - [x] Limite de 45 caracteres por tarefa
 - [x] Limite de 9 atividades 
 - [x] Local Storage
