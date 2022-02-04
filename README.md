@@ -3,7 +3,6 @@
 
 ### Status
 **Quase lá... 95%**
-**Concluindo... 95%**
 - [x] Limite de 45 caracteres por tarefa
 - [x] Limite de 9 atividades 
 - [x] Local Storage
