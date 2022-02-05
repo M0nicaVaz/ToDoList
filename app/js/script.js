@@ -3,6 +3,7 @@ let form = document.getElementById("addForm");
 let taskList = document.getElementById("taskList");
 let resetBtn = document.getElementById("resetBtn");
 let textInput = document.getElementById("task");
+
 let allTasks = [];
 // event listeners to add task, remove task, clear list
 form.addEventListener("submit", addTask);
@@ -54,8 +55,13 @@ function createList() {
   let deleteBtn = document.createElement("button");
   deleteBtn.className = "delete";
   deleteBtn.appendChild(document.createTextNode(""));
-  deleteBtn.innerHTML = "<i class='far fa-trash-alt'></i>";
+  // deleteBtn.innerHTML = "<i class='far fa-trash-alt'></i>";
   li.appendChild(deleteBtn);
+
+  let trashCan = document.createElement("i")
+  trashCan.appendChild(document.createTextNode(""))
+  trashCan.className = "far fa-trash-alt"
+  deleteBtn.appendChild(trashCan);
 
   // add checkbox to check tasks that are done
   let checkbox = document.createElement("input");
@@ -94,20 +100,25 @@ function loadTasks() {
     resetBtn.style.display = "block";
   }
 }
+
 // remove tasks
 function removeTask(e) {
-  if (e.target.classList.contains("delete")) {
-    let li = e.target.parentElement;
+  console.log(e.target)
+
+  if (e.target.classList.contains("far")){
+    let li = e.target.parentElement.parentElement;
     taskList.removeChild(li);
 
     let index = li.innerText;
     allTasks.splice(allTasks.indexOf(index), 1);
+  
   }
   localStorage.setItem("description", JSON.stringify(allTasks));
   if (allTasks.length < 1) {
     resetBtn.style.display = "none";
   }
 }
+
 // check or uncheck task -- NEEDS LOCAL STORAGE IMPROVEMENT
 function checkTask(e) {
   let li = e.target.parentElement;
