@@ -92,14 +92,15 @@ function loadTasks() {
   }
   // creates a new li element for each index of 'allTasks'
 
-  let checked = "";
-  let isChecked = "";
-
   for (i = 0; i < allTasks.length; i++) {
-    if (allTasks[0].done) {
+    let checked = "";
+    let isChecked = "";
+
+    if (allTasks[i].done) {
       checked = "checked";
       isChecked = "isChecked";
     }
+
     document.getElementById("taskList").innerHTML +=
       "<li class='tasks " + isChecked + "'>" +
       "<input type='checkbox' data-key='" + i + "' id='checkButton' class='checked' " + checked + " >" +
@@ -109,6 +110,7 @@ function loadTasks() {
       "</button>" +
       "</li>";
   }
+  
   if (allTasks.length > 0) {
     resetBtn.style.display = "block";
   }
