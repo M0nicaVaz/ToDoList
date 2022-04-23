@@ -2,12 +2,12 @@
 ## A simple and easy to use to-do list.
 
 ### Status
-**Almost there... 95%**
+**Almost there... 100%**
 - [x] Limit of 45 characters per task
 - [x] Limit of 9 tasks
 - [x] Local Storage
 - [x] Mobile enhancements
-- [ ] Keep checked tasks after page refresh
+- [x] Keep checked tasks after page refresh
 
 ### Technology Stack
 - HTML

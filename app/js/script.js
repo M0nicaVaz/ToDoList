@@ -10,6 +10,7 @@ form.addEventListener("submit", addTask);
 taskList.addEventListener("click", removeTask);
 taskList.addEventListener("click", checkTask);
 resetBtn.addEventListener("click", resetList);
+
 window.addEventListener("load", loadTasks);
 // add task to the list
 function addTask(e) {
@@ -75,22 +76,34 @@ function createList() {
 // create task object, push and send it to local storage
 function saveTask() {
   // push tasks to array
-  allTasks.push(textInput.value);
+  allTasks.push({ task: textInput.value, done: false });
 
   // send array to local storage
   localStorage.setItem("description", JSON.stringify(allTasks));
 }
+
+
+
 // load storaged tasks
 function loadTasks() {
   if (JSON.parse(localStorage.getItem("description")) !== null) {
     allTasks = JSON.parse(localStorage.getItem("description"));
+    // console.log(allTasks);
   }
   // creates a new li element for each index of 'allTasks'
+
+  let checked = "";
+  let isChecked = "";
+
   for (i = 0; i < allTasks.length; i++) {
+    if (allTasks[0].done) {
+      checked = "checked";
+      isChecked = "isChecked";
+    }
     document.getElementById("taskList").innerHTML +=
-      "<li class='tasks'>" +
-      "<input type='checkbox' class='checked'>" +
-      allTasks[i] +
+      "<li class='tasks " + isChecked + "'>" +
+      "<input type='checkbox' data-key='" + i + "' id='checkButton' class='checked' " + checked + " >" +
+      allTasks[i].task +
       "<button class='delete'>" +
       "<i class='far fa-trash-alt'></i>" +
       "</button>" +
@@ -100,32 +113,36 @@ function loadTasks() {
     resetBtn.style.display = "block";
   }
 }
-
 // remove tasks
 function removeTask(e) {
-  console.log(e.target)
-
-  if (e.target.classList.contains("far")){
+  if (e.target.classList.contains("far")) {
     let li = e.target.parentElement.parentElement;
     taskList.removeChild(li);
 
     let index = li.innerText;
     allTasks.splice(allTasks.indexOf(index), 1);
-  
   }
   localStorage.setItem("description", JSON.stringify(allTasks));
   if (allTasks.length < 1) {
     resetBtn.style.display = "none";
   }
 }
-
-// check or uncheck task -- NEEDS LOCAL STORAGE IMPROVEMENT
+// check or uncheck task -- NEEDS LOCAL STORAGE IMPROVEMENT 
+// LOCAL STORAGE IMPROVEMENT DONE
 function checkTask(e) {
   let li = e.target.parentElement;
-  if (e.target.checked == true) {
-    li.classList.add("isChecked");
-  } else {
-    li.classList.remove("isChecked");
+  let id = (e.target.dataset.key);
+  console.log(id);
+  console.log(allTasks);
+  if (id >= 0 ){
+    if (e.target.checked == true) {
+      li.classList.add("isChecked");
+      allTasks[id].done = true;
+    } else {
+      li.classList.remove("isChecked");
+      allTasks[id].done = false;
+    }
+    localStorage.setItem("description", JSON.stringify(allTasks));
   }
 }
 // remove all li from ul and clear local storage
