@@ -13,8 +13,8 @@ Click <a href="https://m0nicavaz.github.io/ToDoList/">here</a> to see it live!
 - JavaScript
 
 ### Created by
-<a href="https://www.linkedin.com/in/monica-vaz/"><img src="https://img.shields.io/badge/LinkedIn-Monica%20Vaz-blue?style=flat&logo=appveyor"> </img></a>
+<a href="https://www.linkedin.com/in/monica-vaz/"><img src="https://img.shields.io/badge/LinkedIn-Monica%20Vaz-blue?style=flat"> </img></a>
 
 
 ### Forked by
-<a href="https://github.com/fcms14">fcms14</a>
+<a href="https://github.com/fcms14"><img src="https://img.shields.io/badge/GitHub-fcms14-yellow?style=flat"></a>
