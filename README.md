@@ -6,7 +6,7 @@
 - [x] Limite de 9 atividades 
 - [x] Local Storage
 - [x] Aprimoramentos para mobile
-- [ ] Permanencia do ✔️ em atividades após atualização da página
+- [x] Permanencia do ✔️ em atividades após atualização da página
 
 ### Tecnologias
 - HTML
@@ -14,5 +14,17 @@
 - JavaScript
 
 
+### Author
+
+<a href="https://github.com/M0nicaVaz">Monica Vaz</a>\
+<img src="https://img.shields.io/badge/GMAIL-contatomonicavaz%40gmail.com-red"> </img>
+
 ### Veja em funcionamento:
-<a href="https://m0nicavaz.github.io/ToDoList/"> Lista de Tarefas </a>
+<a href="https://m0nicavaz.github.io/ToDoList/"> ToDo List </a>
+
+
+### forked by
+<a href="https://github.com/fcms14">fcms14</a>\
+
+### Veja em funcionamento:
+<a href="https://fcms14.github.io/ToDoList/"> ToDo List </a>
