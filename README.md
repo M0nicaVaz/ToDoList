@@ -1,30 +1,20 @@
-# Lista de Tarefas 
-## Uma lista de tarefas simples e fácil de utilizar.
+# ToDo List
+## A simple and easy-to-use To Do List.
+Click <a href="https://m0nicavaz.github.io/ToDoList/">here</a> to see it live!
 
-### Status
-- [x] Limite de 45 caracteres por tarefa
-- [x] Limite de 9 atividades 
-- [x] Local Storage
-- [x] Aprimoramentos para mobile
-- [x] Permanencia do ✔️ em atividades após atualização da página
+### Features
+- [x] 45 characters per input
+- [x] 9 "to-do" limit
+- [x] Data stored in Local Storage, including checked checkbox
 
-### Tecnologias
+### Tech Stack
 - HTML
 - CSS
 - JavaScript
 
-
-### Author
-
-<a href="https://github.com/M0nicaVaz">Monica Vaz</a>\
-<img src="https://img.shields.io/badge/GMAIL-contatomonicavaz%40gmail.com-red"> </img>
-
-### Veja em funcionamento:
-<a href="https://m0nicavaz.github.io/ToDoList/"> ToDo List </a>
+### Created by
+<a href="https://www.linkedin.com/in/monica-vaz/"><img src="https://img.shields.io/badge/LinkedIn-Monica%20Vaz-blue?style=flat&logo=appveyor"> </img></a>
 
 
-### forked by
-<a href="https://github.com/fcms14">fcms14</a>\
-
-### Veja em funcionamento:
-<a href="https://fcms14.github.io/ToDoList/"> ToDo List </a>
+### Forked by
+<a href="https://github.com/fcms14">fcms14</a>
